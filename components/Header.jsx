@@ -1,13 +1,14 @@
-"use client";
-import React from 'react'
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
 import Link from 'next/link'
 import Image from 'next/image';
 import { Button } from './ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ChevronDown, LayoutDashboard,StarsIcon, FileText, PenBox, GraduationCap } from 'lucide-react';
+import { checkUser } from '@/lib/checkUser';
 
-const Header = () => {
+const Header = async () => {
+  await checkUser();
+
   return (
    <header className="fixed t-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className='container mx-auto h-16 flex items-center justify-between'>

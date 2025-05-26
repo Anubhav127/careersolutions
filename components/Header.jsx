@@ -6,7 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { ChevronDown, LayoutDashboard,StarsIcon, FileText, PenBox, GraduationCap } from 'lucide-react';
 import { checkUser } from '@/lib/checkUser';
 
-const Header = async () => {
+const Header =  async () => {
   await checkUser();
 
   return (
@@ -26,12 +26,12 @@ const Header = async () => {
             </Link>
 
           <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Button>
+            <DropdownMenuTrigger className='flex flex-row w-[20px] bg-white'>
+              
                 <StarsIcon className="h-4 w-4" />
                 <span className='hidden md:block'>Growth Tools</span>
                 <ChevronDown  className='h-4 w-4'/>
-              </Button>
+              
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>

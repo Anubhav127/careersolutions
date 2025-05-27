@@ -1,9 +1,12 @@
 "use client";
 
-import { LineChart, TrendingDown, TrendingUp } from "lucide-react";
+import { Brain, BriefcaseIcon, LineChart, TrendingDown, TrendingUp } from "lucide-react";
 import {formatDistanceToNow, format} from "date-fns";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import {ResponsiveContainer} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 
 const DashboardView = ({insights}) => {
 
@@ -74,40 +77,106 @@ const DashboardView = ({insights}) => {
 
              <Card>
                 <CardHeader className="flex flex-row space-y-2 pb-2items-center justify-between">
-                    <CardTitle className="text-sm font-medium">Market Outlook</CardTitle>
-                    <OutlookIcon className={`h-4 w-4 ${outlookColor}`} />
+                    <CardTitle className="text-sm font-medium">Industy Growth</CardTitle>
+                    <TrendingUp className={"h-4 w-4 text-muted-foreground"}/>
                 </CardHeader>
                 <CardContent>
-                    <div className="text-2xl font-bold">{insights.marketOutlook}</div>
-                    <p className="text-xs text-muted-foreground">
-                        Next Update {nextUpdateDistance}
-                    </p>
+                    <div className="text-2xl font-bold">{insights.growthRate.toFixed(1)}%</div>
+                    <Progress value={insights.growthRate} className="mt-2" />
                 </CardContent>
             </Card>
 
              <Card>
                 <CardHeader className="flex flex-row space-y-2 pb-2items-center justify-between">
-                    <CardTitle className="text-sm font-medium">Market Outlook</CardTitle>
-                    <OutlookIcon className={`h-4 w-4 ${outlookColor}`} />
+                    <CardTitle className="text-sm font-medium">Demand Level</CardTitle>
+                    <BriefcaseIcon className={`h-4 w-4 text-muted-foreground`} />
                 </CardHeader>
                 <CardContent>
-                    <div className="text-2xl font-bold">{insights.marketOutlook}</div>
-                    <p className="text-xs text-muted-foreground">
-                        Next Update {nextUpdateDistance}
-                    </p>
+                    <div className="text-2xl font-bold">{insights.demandLevel}</div>
+                    <div className={`h-2 w-full rounded-full mt-2 ${getDemandLevelColor(insights.demandLevel)}`} />
                 </CardContent>
             </Card>
 
              <Card>
                 <CardHeader className="flex flex-row space-y-2 pb-2items-center justify-between">
-                    <CardTitle className="text-sm font-medium">Market Outlook</CardTitle>
-                    <OutlookIcon className={`h-4 w-4 ${outlookColor}`} />
+                    <CardTitle className="text-sm font-medium">Top Skills</CardTitle>
+                    <Brain className={`h-4 w-4 text-muted-foreground`} />
                 </CardHeader>
                 <CardContent>
-                    <div className="text-2xl font-bold">{insights.marketOutlook}</div>
-                    <p className="text-xs text-muted-foreground">
-                        Next Update {nextUpdateDistance}
-                    </p>
+                    <div className="flex flex-wrap gap-1">
+                        {insights.topSkills.map((skill, index) => (
+                            <Badge key={index} variant="secondary" className="text-xs">
+                                {skill}
+                            </Badge>
+                        ))}
+                    </div>
+                </CardContent>
+            </Card>
+
+        </div>
+        <div>
+            <Card className="col-span-4">
+                <CardHeader>
+                    <CardTitle>Salary Ranges by Role</CardTitle>
+                    <CardDescription>Display minimum, median and maximum salaries (in thousands)</CardDescription> 
+                </CardHeader>
+                <CardContent>
+                    <div className="h-[400px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <BarChart data={salaryData}>
+                                <CartesianGrid strokeDasharray="3 3"/>
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip content={({active, payload, label}) => {
+                                    if(active && payload && payload.length) {
+                                        return (
+                                            <div className="bg-background border rounded-lg p-2 shadow-md">
+                                                <p className="font-medium">{label}</p>
+                                                {
+                                                    payload.map((item) => (
+                                                        <p key={item.name} className="text-sm">
+                                                            {item.name}: ${item.value}K
+                                                        </p>
+                                                    ))
+                                                }
+                                            </div>
+                                        )
+                                    }
+                                    
+                                    return null;
+                                }}/>
+                                <Bar dataKey="min" fill="#94a3b8" name="Minimum Salary" />
+                                <Bar dataKey="median" fill="#64748b" name="Median Salary" />
+                                <Bar dataKey="max" fill="#475569" name="Maximum Salary" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
+
+        <div className="flex flex-row grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card>
+                <CardHeader className="flex flex-row space-y-2 pb-2items-center justify-between">
+                    <CardTitle className="text-sm font-medium">Key Industry Trends</CardTitle>
+                    <CardDescription className="text-xs text-muted-foreground">
+                        Current trends shaping the industry
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader className="flex flex-row space-y-2 pb-2items-center justify-between">
+                    <CardTitle className="text-sm font-medium">Top Skills</CardTitle>
+                    <CardDescription className="text-xs text-muted-foreground">
+                        Skills in high demand
+                    </CardDescription> 
+                </CardHeader>
+                <CardContent>
+                    
                 </CardContent>
             </Card>
         </div>

@@ -49,8 +49,6 @@ model Resume {
   userId      String    @unique    // One resume per user
   user        User      @relation(fields: [userId], references: [id])
   content     String    @db.Text // Markdown content
-  atsScore    Float?
-  feedback    String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
@@ -63,7 +61,6 @@ model CoverLetter {
   jobDescription  String?
   companyName     String    // Name of the company applying to
   jobTitle        String    // Position applying for
-  status          String    @default("draft") // draft, completed
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
@@ -94,7 +91,7 @@ model IndustryInsight {
   recommendedSkills String[]  // Skills recommended for the industry
   
   lastUpdated   DateTime  @default(now())
-  nextUpdate    DateTime  // Scheduled update time
+  nextUpdated    DateTime  // Scheduled update time
 
   @@index([industry])
 }

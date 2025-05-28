@@ -63,7 +63,7 @@ const DashboardView = ({insights}) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Card>
-                <CardHeader className="flex flex-row space-y-2 pb-2items-center justify-between">
+                <CardHeader className="flex flex-row space-y-2 pb-2 items-center justify-between">
                     <CardTitle className="text-sm font-medium">Market Outlook</CardTitle>
                     <OutlookIcon className={`h-4 w-4 ${outlookColor}`} />
                 </CardHeader>
@@ -76,7 +76,7 @@ const DashboardView = ({insights}) => {
             </Card>
 
              <Card>
-                <CardHeader className="flex flex-row space-y-2 pb-2items-center justify-between">
+                <CardHeader className="flex flex-row space-y-2 pb-2 items-center justify-between">
                     <CardTitle className="text-sm font-medium">Industy Growth</CardTitle>
                     <TrendingUp className={"h-4 w-4 text-muted-foreground"}/>
                 </CardHeader>
@@ -87,7 +87,7 @@ const DashboardView = ({insights}) => {
             </Card>
 
              <Card>
-                <CardHeader className="flex flex-row space-y-2 pb-2items-center justify-between">
+                <CardHeader className="flex flex-row space-y-2 pb-2 items-center justify-between">
                     <CardTitle className="text-sm font-medium">Demand Level</CardTitle>
                     <BriefcaseIcon className={`h-4 w-4 text-muted-foreground`} />
                 </CardHeader>
@@ -98,7 +98,7 @@ const DashboardView = ({insights}) => {
             </Card>
 
              <Card>
-                <CardHeader className="flex flex-row space-y-2 pb-2items-center justify-between">
+                <CardHeader className="flex flex-row space-y-2 pb-2 items-center justify-between">
                     <CardTitle className="text-sm font-medium">Top Skills</CardTitle>
                     <Brain className={`h-4 w-4 text-muted-foreground`} />
                 </CardHeader>
@@ -155,30 +155,42 @@ const DashboardView = ({insights}) => {
             </Card>
         </div>
 
-        <div className="flex flex-row grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid gird-cols-1 md:grid-cols-2 gap-4">
             <Card>
-                <CardHeader className="flex flex-row space-y-2 pb-2items-center justify-between">
-                    <CardTitle className="text-sm font-medium">Key Industry Trends</CardTitle>
-                    <CardDescription className="text-xs text-muted-foreground">
+                <CardHeader>
+                    <CardTitle>Key Industry Trends</CardTitle>
+                    <CardDescription>
                         Current trends shaping the industry
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    
+                    <ul className="space-y-4">
+                        {insights.keyTrends.map((trend, index) => (
+                            <li key={index} className="flex items-start space-x-2">
+                                <div className="h-2 w-2 mt-2 rounded-full bg-primary" />
+                                <span>{trend}</span>
+                            </li>
+                        ))}
+                    </ul>
                 </CardContent>
             </Card>
 
             <Card>
-                <CardHeader className="flex flex-row space-y-2 pb-2items-center justify-between">
-                    <CardTitle className="text-sm font-medium">Top Skills</CardTitle>
-                    <CardDescription className="text-xs text-muted-foreground">
-                        Skills in high demand
+                <CardHeader>
+                    <CardTitle>Recommended Skills</CardTitle>
+                    <CardDescription>
+                        Skills to focus on for career growth
                     </CardDescription> 
                 </CardHeader>
                 <CardContent>
-                    
+                    {insights.recommendedSkills.map((skill) => (
+                        <Badge key={skill} variant="secondary" className="text-xs mr-2 mb-2">
+                            {skill}
+                        </Badge>
+                    ))}
                 </CardContent>
             </Card>
+
         </div>
     </div>
   )

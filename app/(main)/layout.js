@@ -1,9 +1,8 @@
 
 const MainLayout = ({children}) => {
   
-  
   return (
-    <div className="flex justify-center pt-24">{children}</div>
+    <div className="container mx-auto pt-24 mb-20">{children}</div>
   )
 }
 

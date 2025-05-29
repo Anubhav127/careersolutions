@@ -4,16 +4,10 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "randomuser.me",
-                pathname: "/api/portraits/**",
-            },
-            {
-                protocol: "https",
-                hostname: "ui-avatars.com",
-                pathname: "/api/**",
+                hostname: "api.dicebear.com",
+                pathname: "/7.x/**",
             }
         ],
-        minimumCacheTTL: 60,
     },
 };
 

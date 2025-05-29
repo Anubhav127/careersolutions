@@ -96,15 +96,10 @@ export default function Home() {
                     <div className="flex items-center space-x-4">
                       <div className="relative h-12 w-12 flex-shrink-0">
                         <Image 
-                          src={testimonial.image} 
+                          src={testimonial.image}
                           alt={testimonial.author}
-                          fill
-                          sizes="(max-width: 48px) 100vw"
-                          priority
-                          onError={(e) => {
-                            // If the original image fails, switch to UI Avatars
-                            e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.author)}&background=random`;
-                          }}
+                          width={48}
+                          height={48}
                           className="rounded-full object-cover border-2 border-primary/20"
                         />
                       </div>

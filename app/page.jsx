@@ -13,7 +13,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function Home() {
   return (
-    <>
+    
     <div className="grid-background" >
       <HeroSection />
 
@@ -94,8 +94,19 @@ export default function Home() {
                 <CardContent className="pt-6">
                   <div className="flex flex-col space-y-4">
                     <div className="flex items-center space-x-4">
-                      <div className="relative h-12 w-12 flex-shrink-0"><Image src={testimonial.image} alt={testimonial.author} width={40} height={40} 
-                        className="rounded-full object-cover border-2 border-primary/20"/>
+                      <div className="relative h-12 w-12 flex-shrink-0">
+                        <Image 
+                          src={testimonial.image} 
+                          alt={testimonial.author}
+                          fill
+                          sizes="(max-width: 48px) 100vw"
+                          priority
+                          onError={(e) => {
+                            // If the original image fails, switch to UI Avatars
+                            e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.author)}&background=random`;
+                          }}
+                          className="rounded-full object-cover border-2 border-primary/20"
+                        />
                       </div>
                       <div>
                         <p className="font-semibold">{testimonial.author}</p>
@@ -154,6 +165,6 @@ export default function Home() {
         </div>
       </section>
       </div>
-  </>
+  
   );
 }

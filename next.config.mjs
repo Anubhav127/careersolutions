@@ -5,8 +5,15 @@ const nextConfig = {
             {
                 protocol: "https",
                 hostname: "randomuser.me",
+                pathname: "/api/portraits/**",
             },
+            {
+                protocol: "https",
+                hostname: "ui-avatars.com",
+                pathname: "/api/**",
+            }
         ],
+        minimumCacheTTL: 60,
     },
 };
 
